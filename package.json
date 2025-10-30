@@ -1,0 +1,26 @@
+{
+  "name": "ali.ayadi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx sass --watch sass/style.scss css/style.css",
+    "build": "npx sass sass/style.scss css/style.css --no-source-map --style=compressed",
+    "serve": "serve -s -l 8080 ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliAyadi/ali.ayadi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AliAyadi/ali.ayadi/issues"
+  },
+  "homepage": "https://github.com/AliAyadi/ali.ayadi#readme",
+  "devDependencies": {
+    "sass": "^1.93.2",
+    "serve": "^14.2.5"
+  }
+}
