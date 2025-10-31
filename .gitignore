@@ -5,3 +5,11 @@ dist/
 .next/
 build/
 coverage/
+/node_modules/
+**/node_modules/
+.env
+dist/
+build/
+.cache/
+.sass-cache/
+*.log
