@@ -2207,4 +2207,52 @@ body { padding-top: 0px !important; }  /* adjust to your header height */
 .page-grid { margin-top: 0 !important; }
 
 
+/* === Thème par variables === */
+:root{
+  --bg: #ffffff;
+  --text: rgba(0,0,0,.85);
+  --muted: rgba(0,0,0,.6);
+  --border: #eee;
+  --link: #2c98f0;
+  --card: #f2f3f7;
+}
+
+html[data-theme="dark"]{
+  --bg: #0f1115;
+  --text: #e7e7e7;
+  --muted: #b5b5b5;
+  --border: #23252b;
+  --link: #6ab0ff;
+  --card: #171a20;
+}
+
+/* Applique partout les variables principales */
+body{ background: var(--bg); color: var(--text); }
+a{ color: var(--link); }
+#top-nav{ background: var(--bg); border-bottom: 1px solid var(--border); }
+#colorlib-aside{ background: var(--card); }
+.colorlib-bg-color{ background: var(--card); }
+.heading-meta{ color: var(--muted); }
+
+/* Bouton toggle thème */
+#theme-toggle{
+  margin-left: auto;                 /* pour pousser à droite si même ligne que le menu */
+  width: 34px; height: 34px;
+  display: inline-grid; place-items:center;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .1s;
+}
+#theme-toggle:hover{ transform: translateY(-1px); }
+#theme-toggle .icon{ width:18px; height:18px; fill: var(--text); }
+
+/* Afficher/masquer les icônes selon le thème */
+html[data-theme="dark"] #theme-toggle .sun{ display:none; }
+html[data-theme="dark"] #theme-toggle .moon{ display:block; }
+html:not([data-theme="dark"]) #theme-toggle .sun{ display:block; }
+html:not([data-theme="dark"]) #theme-toggle .moon{ display:none; }
+
+
 

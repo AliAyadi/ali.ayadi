@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html data-theme="light">
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,43 +40,40 @@
 	<!-- Owl Carousel -->
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="/css/style.css?v=2025-10-31-1">
+	<link rel="stylesheet" href="css/style.css?v=2">
 
+<!-- ⬇️ AJOUTE ICI -->
+<style>
+  /* Keep the fixed header compact */
+  #top-nav { height:auto; }
+  #top-nav .nav-inner { padding:8px 24px; }
 
+  /* Reserve space for the fixed header */
+  .page-grid { padding-top:56px; } /* adjust 52–60px if needed */
 
-	<style>
-	  /* Keep the fixed header compact */
-	  #top-nav { height:auto; }
-	  #top-nav .nav-inner { padding:8px 24px; }
+  /* Kill the big gap before the first section */
+  #colorlib-main > section.no-top { padding-top: 8px !important; margin-top: 0 !important; }
+  #colorlib-main > section.no-top .colorlib-narrow-content { padding-top: 0 !important; }
+  #colorlib-main > section.no-top .heading-meta,
+  #colorlib-main > section.no-top .colorlib-heading,
+  #colorlib-main > section.no-top .about-desc { margin-top: 0 !important; }
+</style>
+<!-- ⬆️ FIN AJOUT -->
 
-	  /* Reserve space for the fixed header */
-	  .page-grid { padding-top:56px; } /* adjust 52–60px if needed */
+<!-- Modernizr JS -->
+<script src="js/modernizr-2.6.2.min.js"></script>
 
-	  /* Kill the big gap before the first section */
-	  #colorlib-main > section.no-top {
-		padding-top: 8px !important;
-		margin-top: 0 !important;
-	  }
-	  #colorlib-main > section.no-top .colorlib-narrow-content {
-		padding-top: 0 !important;
-	  }
-	  #colorlib-main > section.no-top .heading-meta,
-	  #colorlib-main > section.no-top .colorlib-heading,
-	  #colorlib-main > section.no-top .about-desc {
-		margin-top: 0 !important;
-	  }
-	</style>
-
-
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
 	</head>
+	
+	
+
 	<body>
 
 	<header id="top-nav">
@@ -93,6 +90,17 @@
 			<li><a href="#" data-nav-section="contact">Contact</a></li>
 		  </ul>
 		</nav>
+		<button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+  <!-- soleil -->
+  <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 4V2m0 20v-2M4 12H2m20 0h-2M5.64 5.64 4.22 4.22m15.56 15.56-1.42-1.42M18.36 5.64l1.42-1.42M4.22 19.78l1.42-1.42M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/>
+  </svg>
+  <!-- lune -->
+  <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+  </svg>
+</button>
+
 	  </div>
 	</header>
 
@@ -775,6 +783,40 @@
     onScroll();
   })();
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const STORAGE_KEY = 'pref-theme';
+
+  // Thème initial : localStorage > préférence système > valeur du <html data-theme="...">
+  const stored = localStorage.getItem(STORAGE_KEY);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const fallback = document.documentElement.getAttribute('data-theme') || 'light';
+  const initial = stored ?? (prefersDark ? 'dark' : fallback);
+  applyTheme(initial);
+
+  // Bouton toggle
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem(STORAGE_KEY, next);
+    });
+  }
+
+  // Utilitaire d’application + meta theme-color
+  function applyTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    const meta = document.querySelector('meta[name="theme-color"]') || (() => {
+      const m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); return m;
+    })();
+    meta.setAttribute('content', mode === 'dark' ? '#0f1115' : '#ffffff');
+  }
+});
+</script>
+
 
 	</body>
 </html>
