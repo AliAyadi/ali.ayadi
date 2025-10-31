@@ -2155,42 +2155,46 @@ section[data-section] { scroll-margin-top: 60px; } /* match your header height *
   transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
 }
 
+/* Conteneur des rangées d'icônes */
+.profile-social{
+  display: flex;
+  justify-content: center;   /* centre la rangée */
+  gap: 8px;                  /* espacement horizontal */
+  margin: 6px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Éléments */
+.profile-social li { display: inline-flex; }
+.profile-social li a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;           /* carré constant */
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 999px;                 /* pastille ronde */
+  background: #fff;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+/* Tailles d’icônes */
+.profile-social i{ font-size: 16px; color: rgba(0,0,0,.75); line-height: 1; }
+.profile-social .svg-icon{ width: 18px; height: 18px; fill: rgba(0,0,0,.75); display: block; }
+
+/* Hover */
 .profile-social li a:hover{
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
   border-color: #2c98f0;
 }
-
-/* icomoon (LinkedIn) hérite de la couleur */
-.profile-social i{
-  font-size: 16px;
-  color: rgba(0,0,0,.75);
-}
-
-/* SVGs (GitHub, Scholar, DBLP, RG, ICube) */
-.profile-social .svg-icon{
-  width: 18px;
-  height: 18px;
-  fill: rgba(0,0,0,.75);
-  display: block;
-}
-
-/* survol : teinte bleue */
 .profile-social li a:hover i,
 .profile-social li a:hover .svg-icon{
-  color: #2c98f0;
-  fill: #2c98f0;
+  color: #2c98f0; fill: #2c98f0;
 }
 
-/* un mini-écart entre la 1ʳᵉ et la 2ᵉ rangée */
-.profile-social + .profile-social { margin-top: 6px; }
-
-/* colorisation par service (optionnelle) */
-.profile-social .is-orcid .svg-icon { fill: #a6ce39; }   /* vert ORCID */
-.profile-social .is-hal   .svg-icon { fill: #444; }      /* fond gris neutre */
-
-/* garde le même effet au survol */
-.profile-social li a:hover .svg-icon { filter: brightness(1.1); }
-
-
+/* Couleurs spécifiques */
+.profile-social .is-orcid .svg-icon { fill: #a6ce39; }
+.profile-social .is-hal   .svg-icon { fill: #444; }
 
