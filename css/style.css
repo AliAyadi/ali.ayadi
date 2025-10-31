@@ -1864,8 +1864,7 @@ p { margin-bottom: 1.1em; }
 #top-nav .nav-list a:hover::after,
 #top-nav .nav-list a.active::after { transform: scaleX(1); }
 
-/* Le contenu ne doit pas passer sous la barre */
-#colorlib-main { padding-top: 60px; }
+
 
 /* ===== ASIDE : garder la photo à gauche sans “manger” la largeur ===== */
 #colorlib-aside {
@@ -2197,4 +2196,9 @@ section[data-section] { scroll-margin-top: 60px; } /* match your header height *
 /* Couleurs spécifiques */
 .profile-social .is-orcid .svg-icon { fill: #a6ce39; }
 .profile-social .is-hal   .svg-icon { fill: #444; }
+
+
+
+/* Le contenu ne doit pas passer sous la barre */
+#colorlib-main { padding-top: 0 !important; }
 
