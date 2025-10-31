@@ -2233,3 +2233,61 @@ html[data-theme="dark"] #theme-toggle .moon{ display:block; }
 html:not([data-theme="dark"]) #theme-toggle .sun{ display:block; }
 html:not([data-theme="dark"]) #theme-toggle .moon{ display:none; }
 
+
+/* ---- Header layout & alignment ---- */
+#top-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+/* match your page container width; adjust max-width if your layout uses another value */
+#top-nav .nav-inner{
+  max-width: 1140px;      /* <- same as your main container */
+  margin: 0 auto;         /* center it */
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* brand on the left, nav in the middle, toggle on the right */
+#top-nav .brand{ flex: 0 0 auto; }
+#top-nav nav{ flex: 1 1 auto; }
+#top-nav #theme-toggle{ flex: 0 0 auto; }
+
+#top-nav .nav-list{
+  display: flex;
+  flex-wrap: wrap;        /* allow wrapping on medium screens */
+  align-items: center;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 1200px){
+  #top-nav .nav-inner{ padding: 8px 16px; }
+  #top-nav .nav-list{ gap: 14px; }
+}
+
+@media (max-width: 900px){
+  /* keep everything on one line by letting the list scroll horizontally */
+  #top-nav nav{ overflow-x: auto; }
+  #top-nav .nav-list{
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 12px;
+  }
+  #top-nav .nav-list a{ padding: 6px 2px; display: inline-block; }
+}
+
+/* ---- Reserve space under the fixed header (dynamic height) ---- */
+:root { --header-h: 56px; } /* default */
+.page-grid{ padding-top: var(--header-h); }  /* same class you already use */
+
+

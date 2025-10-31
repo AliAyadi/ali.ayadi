@@ -818,6 +818,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+<script>
+  (function(){
+    const header = document.getElementById('top-nav');
+    const grid = document.querySelector('.page-grid');
+    function syncHeaderSpace(){
+      if(!header || !grid) return;
+      const h = header.offsetHeight;
+      document.documentElement.style.setProperty('--header-h', h + 'px');
+    }
+    window.addEventListener('load', syncHeaderSpace);
+    window.addEventListener('resize', syncHeaderSpace);
+    // if your theme toggle changes header height (font color swap etc.)
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      requestAnimationFrame(syncHeaderSpace);
+      setTimeout(syncHeaderSpace, 250);
+    });
+  })();
+</script>
 
 
 	</body>
