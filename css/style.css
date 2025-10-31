@@ -2182,4 +2182,15 @@ section[data-section] { scroll-margin-top: 60px; } /* match your header height *
   fill: #2c98f0;
 }
 
+/* un mini-écart entre la 1ʳᵉ et la 2ᵉ rangée */
+.profile-social + .profile-social { margin-top: 6px; }
+
+/* colorisation par service (optionnelle) */
+.profile-social .is-orcid .svg-icon { fill: #a6ce39; }   /* vert ORCID */
+.profile-social .is-hal   .svg-icon { fill: #444; }      /* fond gris neutre */
+
+/* garde le même effet au survol */
+.profile-social li a:hover .svg-icon { filter: brightness(1.1); }
+
+
 
