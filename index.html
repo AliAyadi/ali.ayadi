@@ -33,6 +33,7 @@
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<!-- Flexslider  -->
+	
 	<link rel="stylesheet" href="css/flexslider.css">
 	<!-- Flaticons  -->
 	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
@@ -40,7 +41,31 @@
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css?v=2">
+
+	<style>
+	  /* Keep the fixed header compact */
+	  #top-nav { height:auto; }
+	  #top-nav .nav-inner { padding:8px 24px; }
+
+	  /* Reserve space for the fixed header */
+	  .page-grid { padding-top:56px; } /* adjust 52–60px if needed */
+
+	  /* Kill the big gap before the first section */
+	  #colorlib-main > section.no-top {
+		padding-top: 8px !important;
+		margin-top: 0 !important;
+	  }
+	  #colorlib-main > section.no-top .colorlib-narrow-content {
+		padding-top: 0 !important;
+	  }
+	  #colorlib-main > section.no-top .heading-meta,
+	  #colorlib-main > section.no-top .colorlib-heading,
+	  #colorlib-main > section.no-top .about-desc {
+		margin-top: 0 !important;
+	  }
+	</style>
+
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -51,40 +76,102 @@
 
 	</head>
 	<body>
+
+	<header id="top-nav">
+	  <div class="nav-inner">
+		<a class="brand" href="#" data-nav-section="about">Ali Ayadi</a>
+		<nav aria-label="Main">
+		  <ul class="nav-list">
+			<li><a href="#" data-nav-section="about">About</a></li>
+			<li><a href="#" data-nav-section="services">Projects</a></li>
+			<li><a href="#" data-nav-section="skills">Research Topics</a></li>
+			<li><a href="#" data-nav-section="education">Education</a></li>
+			<li><a href="#" data-nav-section="experience">Experience</a></li>
+			<li><a href="#" data-nav-section="publication">Publications</a></li>
+			<li><a href="#" data-nav-section="contact">Contact</a></li>
+		  </ul>
+		</nav>
+	  </div>
+	</header>
+
 	<div id="colorlib-page">
-		<div class="container-wrap">
-		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+	  <div class="container-wrap page-grid">
+
+		<!-- (SUPPRIMÉ) <a href="#" class="js-colorlib-nav-toggle ...> -->
+
 		<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
-			<div class="text-center">
-				<div class="author-img" style="background-image: url(images/Alii.jpeg);"></div>
-				<h1 id="colorlib-logo"><a href="index.html">Ali Ayadi</a></h1>
-				<span class="position">Ph.D in Computer Science</span>
-			</div>
-			<nav id="colorlib-main-menu" role="navigation" class="navbar">
-				<div id="navbar" class="collapse">
-					<ul>
-						<li><a href="#" data-nav-section="about">Abouuuut</a></li>
-						<li><a href="#" data-nav-section="services">Projects</a></li>
-						<li><a href="#" data-nav-section="skills">Research Topics</a></li>
-						<li><a href="#" data-nav-section="education">Education</a></li>
-						<li><a href="#" data-nav-section="experience">Experience</a></li>
-						<li><a href="#" data-nav-section="publication">Publications</a></li>
-						<li><a href="#" data-nav-section="contact">Contact</a></li>
-					</ul>
-				</div>
-			</nav>
+		  <div class="text-center">
+			<div class="author-img" style="background-image: url(images/Alii.jpeg);"></div>
+			<h1 id="colorlib-logo"><a href="index.html">Ali Ayadi</a></h1>
+			<span class="position">Ph.D in Computer Science</span>
+			<ul class="profile-social">
+  <!-- LinkedIn (icône icomoon déjà incluse) -->
+  <li>
+    <a href="https://www.linkedin.com/in/ali-ayadi-77546a72/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+      <i class="icon-linkedin2"></i>
+    </a>
+  </li>
 
-			<div class="colorlib-footer">
-				<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					Copyright <script>document.write(new Date().getFullYear());</script> Ali Ayadi.</span></small></p>
-				<ul>
-					<li><a href="#"><i class="icon-facebook2"></i></a></li>
-					<li><a href="#"><i class="icon-twitter2"></i></a></li>
-					<li><a href="#"><i class="icon-instagram"></i></a></li>
-					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
-				</ul>
-			</div>
+  <!-- GitHub -->
+  <li>
+    <a href="https://github.com/AliAyadi" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+      <svg viewBox="0 0 24 24" class="svg-icon" aria-hidden="true">
+        <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.26.79-.57v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.22 1.79 1.22 1.05 1.8 2.75 1.28 3.42.98.11-.77.41-1.28.74-1.57-2.56-.29-5.26-1.28-5.26-5.71 0-1.26.45-2.3 1.2-3.11-.12-.29-.52-1.45.11-3.02 0 0 .98-.31 3.22 1.19.93-.26 1.93-.39 2.92-.39.99 0 1.99.13 2.92.39 2.24-1.5 3.22-1.19 3.22-1.19.63 1.57.23 2.73.11 3.02.75.81 1.2 1.85 1.2 3.11 0 4.45-2.7 5.42-5.27 5.7.42.37.79 1.09.79 2.2v3.26c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/>
+      </svg>
+    </a>
+  </li>
 
+  <!-- Google Scholar (mortarboard/casquette) -->
+  <li>
+    <a href="https://scholar.google.com/citations?hl=fr&user=yGn8v_kAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+      <svg viewBox="0 0 24 24" class="svg-icon" aria-hidden="true">
+        <path d="M12 3 1 8l11 5 9-4.09V15h2V8L12 3zM5 14v4.5C5 20.43 8.58 21 12 21s7-.57 7-2.5V14l-7 3-7-3z"/>
+      </svg>
+    </a>
+  </li>
+
+  <!-- DBLP (livre) -->
+  <li>
+    <a href="https://dblp.org/pid/191/9244.html" target="_blank" rel="noopener" aria-label="DBLP" title="DBLP">
+      <svg viewBox="0 0 24 24" class="svg-icon" aria-hidden="true">
+        <path d="M4 3h13a3 3 0 0 1 3 3v13.5a.5.5 0 0 1-.77.42L16 18.5l-3.23 1.42a.5.5 0 0 1-.54-.08L10 18.5 6.77 19.9A.5.5 0 0 1 6 19.5V6a1 1 0 0 0-2 0v13H3V6a3 3 0 0 1 1-3zM8 6h9v2H8V6zm0 3h9v2H8V9zm0 3h6v2H8v-2z"/>
+      </svg>
+    </a>
+  </li>
+
+  <!-- ResearchGate (RG) -->
+  <li>
+    <a href="https://www.researchgate.net/profile/Ali-Ayadi" target="_blank" rel="noopener" aria-label="ResearchGate" title="ResearchGate">
+      <svg viewBox="0 0 24 24" class="svg-icon" aria-hidden="true">
+        <path d="M4 4h10.5a5.5 5.5 0 1 1 0 11H11l4.2 5H12l-4.2-5H7v5H4V4zm3 3v5h7.5a2.5 2.5 0 1 0 0-5H7z"/>
+      </svg>
+    </a>
+  </li>
+
+  <!-- ICube (cube) -->
+  <li>
+    <a href="https://sdc.icube.unistra.fr/en/index.php/Ali_Ayadi" target="_blank" rel="noopener" aria-label="ICube" title="ICube">
+      <svg viewBox="0 0 24 24" class="svg-icon" aria-hidden="true">
+        <path d="M12 2 3 7v10l9 5 9-5V7l-9-5zm0 2.2 6.5 3.6L12 11 5.5 7.8 12 4.2zM5 9.4l6 3.3v7L5 16.5V9.4zm14 0v7.1L13 19.7v-7l6-3.3z"/>
+      </svg>
+    </a>
+  </li>
+</ul>
+
+		  </div>
+
+		  <!-- (SUPPRIMÉ) <nav id="colorlib-main-menu"> ... </nav> -->
+
+		  <div class="colorlib-footer">
+			<p><small>&copy; Copyright
+			  <script>document.write(new Date().getFullYear());</script> Ali Ayadi.</small></p>
+			<ul>
+			  <li><a href="#"><i class="icon-facebook2"></i></a></li>
+			  <li><a href="#"><i class="icon-twitter2"></i></a></li>
+			  <li><a href="#"><i class="icon-instagram"></i></a></li>
+			  <li><a href="#"><i class="icon-linkedin2"></i></a></li>
+			</ul>
+		  </div>
 		</aside>
 
 		<div id="colorlib-main">
@@ -92,19 +179,19 @@
 			
 <!-- Section About me -->
 
-			<section class="colorlib-about" data-section="about">
-				<div class="colorlib-narrow-content">
+			<section class="colorlib-about" data-section="about" style="padding-top:8px;margin-top:0;">
+				<div class="colorlib-narrow-content" style="padding-top:0;">
 					<div class="row">
 						<div class="col-md-13">
 							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
 								<div class="col-md-13">
 									<div class="about-desc">
 										<span class="heading-meta">Who Am I?</span>
-										<h2 class="colorlib-heading">About Me</h2>
+										<h2 class="colorlib-heading" style="margin-top:0;">About Me</h2>
 										<p>I am currently an Associate Professor in Computer Science at the <a href="https://www.unistra.fr/">University of Strasbourg</a>.</p>
 										<p>I teach in the <a href="https://iutrs.unistra.fr/iut/departements/informatique">Computer Science Department</a> of the <a href="http://iutrs.unistra.fr/">Robert Schuman IUT</a>.</p>
 										<p>I am conducting my research in the Data Science and Knowledge team (<a href="https://sdc.icube.unistra.fr/index.php/Accueil">SDC</a>) of the engineering sciences, computer science, and imaging laboratory (<a href="http://icube.unistra.fr/">ICube</a>), since 09/2023.</p>
-										<br>
+								
 										<p>Previously, I have been:</p>
 											<ul>
 												  <li>Associate Professor in the CSTB team (09/2021 -- 09/2023)</li>
@@ -616,6 +703,52 @@
 	
 	<!-- MAIN JS -->
 	<script src="js/main.js"></script>
+
+
+<script>
+  (function () {
+    const header = document.querySelector('#top-nav');
+    const headerH = () => (header ? header.offsetHeight : 0);
+
+    // Smooth-scroll on menu click
+    document.querySelectorAll('#top-nav .nav-list a, #top-nav .brand').forEach(a => {
+      a.addEventListener('click', e => {
+        const sect = a.getAttribute('data-nav-section');
+        if (!sect) return; // allow normal links if any
+        e.preventDefault();
+        const el = document.querySelector(`section[data-section="${sect}"]`);
+        if (!el) return;
+
+        const y = el.getBoundingClientRect().top + window.pageYOffset - headerH() - 8;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    });
+
+    // Optional: highlight active tab while scrolling
+    const items = [...document.querySelectorAll('#top-nav .nav-list a')];
+    const targets = items
+      .map(a => a.getAttribute('data-nav-section'))
+      .filter(Boolean)
+      .map(k => document.querySelector(`section[data-section="${k}"]`))
+      .filter(Boolean);
+
+    const onScroll = () => {
+      const y = window.scrollY + headerH() + 12;
+      let active = null;
+      for (const el of targets) {
+        if (y >= el.offsetTop && y < el.offsetTop + el.offsetHeight) {
+          active = el.getAttribute('data-section');
+          break;
+        }
+      }
+      items.forEach(a =>
+        a.classList.toggle('active', a.getAttribute('data-nav-section') === active)
+      );
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 
 	</body>
 </html>
