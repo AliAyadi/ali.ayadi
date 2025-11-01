@@ -2228,66 +2228,205 @@ a{ color:var(--link); }
   border:1px solid var(--border); background:var(--bg); border-radius:999px; cursor:pointer;
 }
 #theme-toggle .icon{ width:18px; height:18px; fill:var(--text); }
-html[data-theme="dark"] #theme-toggle .sun{ display:none; }
-html[data-theme="dark"] #theme-toggle .moon{ display:block; }
-html:not([data-theme="dark"]) #theme-toggle .sun{ display:block; }
-html:not([data-theme="dark"]) #theme-toggle .moon{ display:none; }
+html[data-theme="dark"]{
+  /* Gris foncé doux */
+  --bg:    #1c1f24;   /* fond principal */
+  --card:  #242933;   /* panneaux/aside */
+  --border:#2c333d;   /* traits/contours */
+  --text:  #e8e9ed;   /* texte */
+  --muted: #b8c0cc;   /* sous-titres */
+  --link:  #77b2ff;   /* liens (un peu plus doux) */
+}
+meta.setAttribute('content', mode === 'dark' ? '#1c1f24' : '#ffffff');
 
+/* ==== Dark mode readability fixes ==== */
 
-/* ---- Header layout & alignment ---- */
-#top-nav{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  background: var(--bg);
+/* Navbar */
+html[data-theme="dark"] #top-nav { 
+  background: var(--bg); 
   border-bottom: 1px solid var(--border);
 }
-
-/* match your page container width; adjust max-width if your layout uses another value */
-#top-nav .nav-inner{
-  max-width: 1140px;      /* <- same as your main container */
-  margin: 0 auto;         /* center it */
-  padding: 8px 24px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-sizing: border-box;
+html[data-theme="dark"] #top-nav .brand,
+html[data-theme="dark"] #top-nav .nav-list a {
+  color: var(--text) !important;
+}
+html[data-theme="dark"] #top-nav .nav-list a:hover,
+html[data-theme="dark"] #top-nav .nav-list a.active {
+  color: var(--link) !important;
+  border-color: var(--link);
 }
 
-/* brand on the left, nav in the middle, toggle on the right */
-#top-nav .brand{ flex: 0 0 auto; }
-#top-nav nav{ flex: 1 1 auto; }
-#top-nav #theme-toggle{ flex: 0 0 auto; }
-
-#top-nav .nav-list{
-  display: flex;
-  flex-wrap: wrap;        /* allow wrapping on medium screens */
-  align-items: center;
-  gap: 18px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* Headings & section titles (theme had hard-coded black) */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] .colorlib-heading {
+  color: var(--text) !important;
+}
+html[data-theme="dark"] .heading-meta {
+  color: var(--muted) !important;
 }
 
-/* ---- Responsive tweaks ---- */
-@media (max-width: 1200px){
-  #top-nav .nav-inner{ padding: 8px 16px; }
-  #top-nav .nav-list{ gap: 14px; }
+/* Aside / cards */
+html[data-theme="dark"] #colorlib-aside,
+html[data-theme="dark"] .colorlib-bg-color {
+  background: var(--card);
+  color: var(--text);
+}
+html[data-theme="dark"] #colorlib-aside .position,
+html[data-theme="dark"] #colorlib-aside .colorlib-footer p small {
+  color: var(--muted);
 }
 
-@media (max-width: 900px){
-  /* keep everything on one line by letting the list scroll horizontally */
-  #top-nav nav{ overflow-x: auto; }
-  #top-nav .nav-list{
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: 12px;
-  }
-  #top-nav .nav-list a{ padding: 6px 2px; display: inline-block; }
+/* Social icons in the aside */
+html[data-theme="dark"] .profile-social li a {
+  background: var(--bg);
+  border-color: var(--border);
+}
+html[data-theme="dark"] .profile-social i,
+html[data-theme="dark"] .profile-social .svg-icon {
+  color: var(--text);
+  fill: var(--text);
+  opacity: .95;
+}
+html[data-theme="dark"] .profile-social li a:hover i,
+html[data-theme="dark"] .profile-social li a:hover .svg-icon {
+  color: var(--link);
+  fill: var(--link);
 }
 
-/* ---- Reserve space under the fixed header (dynamic height) ---- */
-:root { --header-h: 56px; } /* default */
-.page-grid{ padding-top: var(--header-h); }  /* same class you already use */
+/* Links in content */
+html[data-theme="dark"] a { color: var(--link); }
+
+
+/* === TUE-LA-BARRE (dark + light) === */
+
+/* 1) l’aside n’a aucune ombre */
+#colorlib-aside{
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+/* 2) la classe `border` ne trace plus rien */
+#colorlib-aside.border{
+  border: none !important;
+}
+#colorlib-aside.border::before,
+#colorlib-aside.border::after{
+  content: none !important;
+}
+
+/* 3) certains templates ajoutent une “ligne” via ::before sur la zone contenu */
+#colorlib-main::before,
+#colorlib-main::after,
+#colorlib-main .colorlib-narrow-content::before,
+#colorlib-main .colorlib-narrow-content::after,
+.container-wrap::before,
+.container-wrap::after{
+  content: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  width: 0 !important;
+}
+
+/* 4) en mode sombre, on met juste un fin trait propre si tu en veux un */
+html[data-theme="dark"] #colorlib-aside{
+  border-right: 1px solid var(--border) !important;  /* enlève cette ligne si tu ne veux aucun trait */
+}
+
+/* 5) petit “respir” côté texte, au cas où la ligne était une superposition */
+#colorlib-main{ padding-left: 2px; } /* optionnel */
+
+/* No divider, no forced scrollbar, no shadows */
+#colorlib-aside,
+#colorlib-aside::before,
+#colorlib-aside::after,
+#colorlib-main::before,
+#colorlib-main::after,
+.container-wrap::before,
+.container-wrap::after{
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* pas de bordure spéciale en dark */
+html[data-theme="dark"] #colorlib-aside{
+  border-right: 0 !important;
+  background: transparent !important;
+}
+
+/* si la barre venait d’un scrollbar forcé */
+#colorlib-aside{ overflow: hidden !important; }
+
+/* évite qu’un “gap” dessine une ligne entre colonnes */
+.page-grid{ column-gap: 0 !important; }
+#colorlib-main{ padding-left: 12px !important; } /* petit espace propre */
+
+/* Dark mode: make the name under the photo visible */
+html[data-theme="dark"] #colorlib-aside #colorlib-logo a {
+  color: #fff !important;          /* or: color: var(--text) !important; */
+}
+html[data-theme="dark"] #colorlib-aside #colorlib-logo a:hover {
+  color: var(--link) !important;
+}
+
+
+
+/* Make the left aside fill the column height */
+.page-grid { align-items: stretch; }           /* override start */
+#colorlib-aside { 
+  align-self: stretch;                          /* safety */
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100%;
+}
+
+/* Push the copyright to the bottom of the aside */
+#colorlib-aside .colorlib-footer {
+  margin-top: auto;
+  padding-top: 8px;       /* optional spacing */
+}
+
+
+
+/* CONTACT — icônes plus petites */
+.colorlib-contact .colorlib-feature-sm{
+  display:flex;               /* met l’icône et le texte sur une ligne */
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.colorlib-contact .colorlib-feature-sm .colorlib-icon{
+  flex:0 0 52px;              /* largeur fixe compacte */
+  width:52px;
+  height:52px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  /* optionnel: fond plus discret */
+  background: rgba(0,0,0,.04);
+}
+
+.colorlib-contact .colorlib-feature-sm .colorlib-icon i{
+  font-size:20px;             /* taille du pictogramme */
+  line-height:1;
+}
+
+.colorlib-contact .colorlib-feature-sm .colorlib-text{
+  margin-left:14px;           /* espace entre icône et texte */
+}
+
+.contact-inline{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center;}
+.contact-inline .colorlib-feature{    /* rend chaque bloc compact */
+  display:flex; align-items:center; gap:8px; margin:0; padding:0; box-shadow:none;
+}
+.contact-inline .colorlib-icon{
+  width:auto; height:auto; background:none; border:0; margin:0; padding:0;
+}
+.contact-inline .colorlib-icon i{font-size:16px; line-height:1;}
+.contact-inline .colorlib-text p{margin:0; white-space:nowrap;}
 
 
