@@ -1018,3 +1018,49 @@ html[data-theme="dark"] #colorlib-aside #colorlib-logo a:hover {
 }
 
 
+
+/* --- News / XP header layout (titre + date à droite) --- */
+.xp-head{
+  display:flex;
+  align-items:baseline;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+.xp-head .xp-dates{
+  margin-left:auto;
+  font-size:.85rem;
+  font-weight:600;
+  /* petites caps (avec fallback synthétique si la police ne les fournit pas) */
+  font-variant-caps: all-small-caps;
+  letter-spacing:.06em;
+  opacity:.8;
+}
+
+/* --- Badge "New" --- */
+.badge-new{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.15rem .5rem;
+  border-radius:9999px;
+  font-size:.72rem;
+  font-weight:700;
+  line-height:1.2;
+  background:#10b981;   /* vert */
+  color:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.badge-new::before{
+  content:"";
+  width:.42rem; height:.42rem;
+  border-radius:9999px;
+  background:rgba(255,255,255,.9);
+}
+
+/* thème sombre : léger assombrissement du vert */
+html[data-theme="dark"] .badge-new{ background:#059669; }
+
+/* optionnel : petite séparation entre le badge et le titre si collés */
+.xp-head h3 .badge-new{ margin-left:.25rem; vertical-align:middle; }
+
+
