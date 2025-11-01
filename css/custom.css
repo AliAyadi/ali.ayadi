@@ -1,4 +1,10 @@
 /* ====== Forcer le layout en 2 colonnes ====== */
+:root{ --aside-w: 260px; --grid-gap: .5rem; }
+@media (max-width: 992px){
+  :root{ --aside-w: 0px; --grid-gap: 0px; }
+}
+
+
 .page-grid{
   display: grid !important;
   grid-template-columns: 260px clamp(620px, 65vw, 860px) !important;
@@ -39,13 +45,30 @@
   #colorlib-aside{ text-align: center; }
 }
 
-/* header + premier bloc compact */
-#top-nav{ height:auto; }
-#top-nav .nav-inner{ padding:8px 24px; }
-.page-grid{ padding-top:56px; }               /* réserve la place du header */
-#colorlib-main > section.no-top{              /* enlève le gros blanc en haut */
-  padding-top:8px !important; margin-top:0 !important;
+/* Fixed header + no wrap */
+#top-nav{
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  height:auto;
+  background: var(--header-bg, rgba(255,255,255,.85));
+  backdrop-filter: saturate(120%) blur(6px);
+  border-bottom: 1px solid var(--card-border,#e8e8e8);
 }
+#top-nav .nav-inner{
+  padding:8px 24px;
+  display:flex; align-items:center; gap:16px;
+  flex-wrap: nowrap;                 /* évite le retour à la ligne */
+    padding-left: calc(24px + var(--aside-w) + var(--grid-gap));
+}
+#top-nav .nav-list{                  /* idem pour la liste */
+  margin-left:auto; display:flex; gap:16px;
+  flex-wrap: nowrap;
+}
+#top-nav .nav-list a, #top-nav .brand{ white-space:nowrap; }
+
+/* Reserve dynamic space for the fixed header */
+.page-grid{ padding-top: var(--header-h,56px) !important; }
+
+
 #colorlib-main > section.no-top .colorlib-narrow-content{ padding-top:0 !important; }
 #colorlib-main > section.no-top .heading-meta,
 #colorlib-main > section.no-top .colorlib-heading,
@@ -349,6 +372,649 @@ html[data-theme="dark"] .edu-item::before{
 /* responsive: dates sous le titre */
 @media (max-width:540px){
   .edu-head{ flex-direction:column; align-items:flex-start; gap:4px; }
+}
+
+
+.page-grid{ padding-top: var(--header-h, 56px); }
+
+
+
+/* ===== TOP NAVBAR HORIZONTALE ===== */
+#top-nav {
+  position: sticky;  /* ou fixed si tu veux qu’il reste collé en scroll */
+  top: 0;
+  z-index: 2000;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+#top-nav .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+#top-nav .brand {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#top-nav .nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+}
+#top-nav .nav-list a {
+  text-decoration: none;
+  color: rgba(0,0,0,.8);
+  font-family: "Quicksand", Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: .4rem .25rem;
+  position: relative;
+}
+#top-nav .nav-list a:hover {
+  color: #000;
+}
+#top-nav .nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px; height: 1px;
+  background: #2c98f0;
+  transform: scaleX(0);
+  transition: transform .25s ease;
+}
+#top-nav .nav-list a:hover::after,
+#top-nav .nav-list a.active::after { transform: scaleX(1); }
+
+
+
+/* ===== ASIDE : garder la photo à gauche sans “manger” la largeur ===== */
+#colorlib-aside {
+  width: 180px;           /* plus fin */
+  position: fixed;
+  left: 12px;
+  top: 80px;              /* sous la barre */
+  bottom: auto;
+  height: auto;
+  overflow: visible;
+  background: transparent;
+  padding-top: 0;
+  border: 0;
+  box-shadow: none;
+}
+/* centrer la photo + nom/titre si tu veux les garder */
+#colorlib-aside #colorlib-logo a { text-align: center; }
+#colorlib-aside .author-img { width: 130px; height: 130px; }
+#colorlib-aside .position { text-align: center; }
+
+/* Masquer l’ancien menu vertical de l’aside */
+#colorlib-aside #colorlib-main-menu { display: none; }
+
+/* ===== CONTENU PLEINE LARGEUR ===== */
+#colorlib-main {
+  width: 100%;            /* au lieu de calc(100% - 300px) */
+  float: none;
+  margin-left: 0;
+}
+
+/* Donner un peu d'air à gauche pour ne pas recouvrir la photo */
+.container-wrap { 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 210px;     /* espace pour la photo à gauche */
+}
+
+/* Mobile : cacher la photo et enlever le padding gauche */
+@media (max-width: 992px) {
+  #colorlib-aside { display: none; }
+  .container-wrap { padding-left: 1rem; }
+}
+
+/* ---- Sidebar gap from the viewport edge ---- */
+:root { --sidebar-gap: 40px; }  /* ajuste 16–32px selon ton goût */
+
+#colorlib-aside {
+  left: var(--sidebar-gap);           /* décale la colonne photo à droite */
+}
+
+#colorlib-main {
+  width: calc(100% - 300px - var(--sidebar-gap)); /* évite le chevauchement */
+}
+
+/* Mobile: on remet tout à 0 */
+@media screen and (max-width: 768px) {
+  #colorlib-aside { width: 260px; }
+#colorlib-main  { width: calc(100% - 260px - var(--sidebar-gap)); }
+
+}
+
+
+/* layout variables */
+:root{
+  --sidebar-w: 260px;     /* width of the left column with photo */
+  --grid-gap: 40px;       /* space between columns */
+  --content-max: 1280px;  /* page max width (was 1170px) */
+}
+
+/* center the whole page content and give it a bit more width */
+.container-wrap{
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 24px;        /* small side padding on very large screens */
+}
+
+/* make sidebar + main a two-column grid instead of float/fixed */
+.page-grid{
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  column-gap: var(--grid-gap);
+  align-items: start;
+  margin-top: 8px;        /* so it sits nicely under the top menu */
+}
+
+/* sidebar now flows in the grid (no fixed position, no fixed width) */
+#colorlib-aside{
+  position: static;
+  float: none;
+  width: auto;
+  background: transparent;
+  box-shadow: none;
+  padding-top: 1.25rem;
+  padding-bottom: 0;
+}
+
+/* main content just takes the remaining space */
+#colorlib-main{
+  float: none;
+  width: auto;
+}
+
+/* optional: tighten inner padding so text aligns better */
+.colorlib-narrow-content{ padding: 0 1.5em; }
+
+/* responsive: stack on small screens */
+@media (max-width: 992px){
+  .page-grid{
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+  #colorlib-aside{ text-align: center; }
+}
+
+/* Réduire l’écart entre les 2 colonnes et contrôler la largeur de droite */
+.page-grid{
+  /* colonne gauche + colonne droite plus étroite */
+  grid-template-columns: 260px clamp(620px, 65vw, 860px);
+  column-gap: 0.5rem;           /* (avant 2rem) espace entre colonnes */
+}
+
+/* Empêcher le contenu de s’étaler et coller à gauche de la zone */
+.page-grid #colorlib-main{
+  max-width: 860px;              /* borne haute de la colonne de droite */
+  justify-self: start;           /* aligne la colonne à gauche de sa piste */
+}
+
+/* Un peu moins de padding intérieur sur les sections de contenu */
+.colorlib-narrow-content{
+  padding: 0 0.5rem;             /* (avant 2.5rem) */
+}
+
+
+
+
+
+
+
+/* ---- Keep header the same width as the content column ---- */
+:root{
+  --aside: 260px;                       /* left column width */
+  --gap: 0.2rem;                       /* gap between columns */
+  --content: clamp(620px, 65vw, 860px); /* right column width */
+  --pad: 1.5rem;                        /* inner horizontal padding */
+}
+
+.page-grid{
+  grid-template-columns: var(--aside) var(--content);
+  column-gap: var(--gap);
+}
+
+#colorlib-main{ max-width: var(--content); justify-self:start; }
+.colorlib-narrow-content{ padding: 0 var(--pad); }
+
+/* Header spans full page but its inner container matches the right column */
+#top-nav{
+  position: sticky; top: 0; z-index: 1000;
+  background: #fff; border-bottom: 1px solid #eee;
+}
+#top-nav .nav-inner{
+  margin-left: calc(var(--aside) + var(--gap)); /* align with content start */
+  max-width: var(--content);                    /* same width as content */
+  padding: 0 var(--pad);
+}
+
+
+
+/* Resserre fortement l'espace entre About et la section suivante */
+.colorlib-about{
+  padding-bottom: 1.5em !important;
+  margin-bottom: 0 !important;
+}
+.colorlib-about .about-desc{
+  margin-bottom: 0 !important;
+}
+.colorlib-about p:last-child,
+.colorlib-about ul:last-child{
+  margin-bottom: 0 !important;
+}
+
+/* Démarrage plus serré de la section suivante */
+.colorlib-skills{
+  padding-top: 1.25em !important;
+}
+
+/* Neutralise le padding injecté par les classes utilitaires */
+.row-bottom-padded-sm{
+  padding-bottom: 0 !important;
+}
+.colorlib-heading{
+  margin-bottom: 1em !important;
+}
+
+
+/* 1) Keep the top menu its natural height (undo any forced height) */
+#top-nav{ height:auto !important; }
+#top-nav .nav-inner{ padding: 8px 24px !important; }  /* compact but readable */
+
+/* 2) Only reserve a small offset for the fixed menu */
+body{ padding-top: 54px !important; }  /* was larger; tweak 50–56px if needed */
+
+/* 3) Kill the extra top padding on the FIRST content section */
+#colorlib-main > section:first-of-type{
+  padding-top: 0.75rem !important;   /* much smaller than the default 4em */
+  margin-top: 0 !important;
+}
+
+/* 4) Ensure no extra margins sneak in inside that first section */
+#colorlib-main > section:first-of-type .heading-meta,
+#colorlib-main > section:first-of-type .colorlib-heading,
+#colorlib-main > section:first-of-type .about-desc{
+  margin-top: 0 !important;
+}
+
+
+/* === Compactage du haut de page (écrase les règles précédentes) === */
+
+/* 1) Réduire l'offset réservé sous le menu */
+#colorlib-main {
+  padding-top: 5px !important;   /* au lieu de 60px */
+}
+
+/* 2) Réduire encore le haut de la toute première section ("About") */
+#colorlib-main > section.colorlib-about {
+  padding-top: 2px !important;    /* au lieu de 4em / 2rem */
+  margin-top: 0 !important;
+}
+
+/* 3) Pas de marge parasite en tête de section */
+#colorlib-main > section.colorlib-about .heading-meta,
+#colorlib-main > section.colorlib-about .colorlib-heading,
+#colorlib-main > section.colorlib-about .about-desc {
+  margin-top: 0 !important;
+}
+
+/* (Optionnel) si tu as mis le header en sticky/fixed, garde-le compact */
+#top-nav { height: auto !important; }
+#top-nav .nav-inner { padding: 8px 1px !important; }
+
+/* ==== Menu du haut compact ==== */
+#top-nav { height: auto !important; border-bottom: 1px solid #eee; }
+
+#top-nav .nav-inner{
+  padding: 6px 14px !important;   /* ↓ réduit la hauteur */
+  height: 44px;                   /* cible ~44–48px de barre */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Texte un peu plus petit et moins d'air autour des liens */
+#top-nav .brand{ font-size: 14px !important; }
+#top-nav .nav-list a{
+  font-size: 12px !important;
+  padding: 4px 6px !important;    /* ↓ espace vertical */
+  line-height: 1 !important;
+}
+
+/* Si le contenu passe sous la barre, garde un petit offset */
+body{ padding-top: 5px !important; }   /* ajuste 46–54px si besoin */
+
+
+/* Make anchors stop below the fixed header */
+section[data-section] { scroll-margin-top: 60px; } /* match your header height */
+
+/* Icônes sociales sous la photo */
+.profile-social{
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  justify-content: center; /* aligne sous la photo */
+  flex-wrap: wrap;
+}
+
+.profile-social li a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+/* Conteneur des rangées d'icônes */
+.profile-social{
+  display: flex;
+  justify-content: center;   /* centre la rangée */
+  gap: 8px;                  /* espacement horizontal */
+  margin: 6px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Éléments */
+.profile-social li { display: inline-flex; }
+.profile-social li a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;           /* carré constant */
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 999px;                 /* pastille ronde */
+  background: #fff;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+/* Tailles d’icônes */
+.profile-social i{ font-size: 16px; color: rgba(0,0,0,.75); line-height: 1; }
+.profile-social .svg-icon{ width: 18px; height: 18px; fill: rgba(0,0,0,.75); display: block; }
+
+/* Hover */
+.profile-social li a:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  border-color: #2c98f0;
+}
+.profile-social li a:hover i,
+.profile-social li a:hover .svg-icon{
+  color: #2c98f0; fill: #2c98f0;
+}
+
+/* Couleurs spécifiques */
+.profile-social .is-orcid .svg-icon { fill: #a6ce39; }
+.profile-social .is-hal   .svg-icon { fill: #444; }
+
+
+
+/* Le contenu ne doit pas passer sous la barre */
+
+body { padding-top: 0px !important; }  /* adjust to your header height */
+
+.page-grid { margin-top: 0 !important; }
+
+
+:root{
+  --bg:#ffffff; --text:rgba(0,0,0,.85); --muted:rgba(0,0,0,.6);
+  --border:#eee; --link:#2c98f0; --card:#f2f3f7;
+}
+html[data-theme="dark"]{
+  --bg:#0f1115; --text:#e7e7e7; --muted:#b5b5b5;
+  --border:#23252b; --link:#6ab0ff; --card:#171a20;
+}
+body{ background:var(--bg); color:var(--text); }
+a{ color:var(--link); }
+#top-nav{ background:var(--bg); border-bottom:1px solid var(--border); }
+#colorlib-aside{ background:var(--card); }
+.colorlib-bg-color{ background:var(--card); }
+.heading-meta{ color:var(--muted); }
+
+/* Bouton toggle */
+#theme-toggle{
+  margin-left:auto; width:34px; height:34px; display:inline-grid; place-items:center;
+  border:1px solid var(--border); background:var(--bg); border-radius:999px; cursor:pointer;
+}
+#theme-toggle .icon{ width:18px; height:18px; fill:var(--text); }
+html[data-theme="dark"]{
+  /* Gris foncé doux */
+  --bg:    #1c1f24;   /* fond principal */
+  --card:  #242933;   /* panneaux/aside */
+  --border:#2c333d;   /* traits/contours */
+  --text:  #e8e9ed;   /* texte */
+  --muted: #b8c0cc;   /* sous-titres */
+  --link:  #77b2ff;   /* liens (un peu plus doux) */
+}
+
+
+/* ==== Dark mode readability fixes ==== */
+
+/* Navbar */
+html[data-theme="dark"] #top-nav { 
+  background: var(--bg); 
+  border-bottom: 1px solid var(--border);
+}
+html[data-theme="dark"] #top-nav .brand,
+html[data-theme="dark"] #top-nav .nav-list a {
+  color: var(--text) !important;
+}
+html[data-theme="dark"] #top-nav .nav-list a:hover,
+html[data-theme="dark"] #top-nav .nav-list a.active {
+  color: var(--link) !important;
+  border-color: var(--link);
+}
+
+/* Headings & section titles (theme had hard-coded black) */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] .colorlib-heading {
+  color: var(--text) !important;
+}
+html[data-theme="dark"] .heading-meta {
+  color: var(--muted) !important;
+}
+
+/* Aside / cards */
+html[data-theme="dark"] #colorlib-aside,
+html[data-theme="dark"] .colorlib-bg-color {
+  background: var(--card);
+  color: var(--text);
+}
+html[data-theme="dark"] #colorlib-aside .position,
+html[data-theme="dark"] #colorlib-aside .colorlib-footer p small {
+  color: var(--muted);
+}
+
+/* Social icons in the aside */
+html[data-theme="dark"] .profile-social li a {
+  background: var(--bg);
+  border-color: var(--border);
+}
+html[data-theme="dark"] .profile-social i,
+html[data-theme="dark"] .profile-social .svg-icon {
+  color: var(--text);
+  fill: var(--text);
+  opacity: .95;
+}
+html[data-theme="dark"] .profile-social li a:hover i,
+html[data-theme="dark"] .profile-social li a:hover .svg-icon {
+  color: var(--link);
+  fill: var(--link);
+}
+
+/* Links in content */
+html[data-theme="dark"] a { color: var(--link); }
+
+
+/* === TUE-LA-BARRE (dark + light) === */
+
+/* 1) l’aside n’a aucune ombre */
+#colorlib-aside{
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+/* 2) la classe `border` ne trace plus rien */
+#colorlib-aside.border{
+  border: none !important;
+}
+#colorlib-aside.border::before,
+#colorlib-aside.border::after{
+  content: none !important;
+}
+
+/* 3) certains templates ajoutent une “ligne” via ::before sur la zone contenu */
+#colorlib-main::before,
+#colorlib-main::after,
+#colorlib-main .colorlib-narrow-content::before,
+#colorlib-main .colorlib-narrow-content::after,
+.container-wrap::before,
+.container-wrap::after{
+  content: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  width: 0 !important;
+}
+
+/* 4) en mode sombre, on met juste un fin trait propre si tu en veux un */
+html[data-theme="dark"] #colorlib-aside{
+  border-right: 1px solid var(--border) !important;  /* enlève cette ligne si tu ne veux aucun trait */
+}
+
+/* 5) petit “respir” côté texte, au cas où la ligne était une superposition */
+#colorlib-main{ padding-left: 2px; } /* optionnel */
+
+/* No divider, no forced scrollbar, no shadows */
+#colorlib-aside,
+#colorlib-aside::before,
+#colorlib-aside::after,
+#colorlib-main::before,
+#colorlib-main::after,
+.container-wrap::before,
+.container-wrap::after{
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* pas de bordure spéciale en dark */
+html[data-theme="dark"] #colorlib-aside{
+  border-right: 0 !important;
+  background: transparent !important;
+}
+
+/* si la barre venait d’un scrollbar forcé */
+#colorlib-aside{ overflow: hidden !important; }
+
+/* évite qu’un “gap” dessine une ligne entre colonnes */
+.page-grid{ column-gap: 0 !important; }
+#colorlib-main{ padding-left: 12px !important; } /* petit espace propre */
+
+/* Dark mode: make the name under the photo visible */
+html[data-theme="dark"] #colorlib-aside #colorlib-logo a {
+  color: #fff !important;          /* or: color: var(--text) !important; */
+}
+html[data-theme="dark"] #colorlib-aside #colorlib-logo a:hover {
+  color: var(--link) !important;
+}
+
+
+
+/* Make the left aside fill the column height */
+.page-grid { align-items: stretch; }           /* override start */
+#colorlib-aside { 
+  align-self: stretch;                          /* safety */
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100%;
+}
+
+/* Push the copyright to the bottom of the aside */
+#colorlib-aside .colorlib-footer {
+  margin-top: auto;
+  padding-top: 8px;       /* optional spacing */
+}
+
+
+
+/* CONTACT — icônes plus petites */
+.colorlib-contact .colorlib-feature-sm{
+  display:flex;               /* met l’icône et le texte sur une ligne */
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.colorlib-contact .colorlib-feature-sm .colorlib-icon{
+  flex:0 0 52px;              /* largeur fixe compacte */
+  width:52px;
+  height:52px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  /* optionnel: fond plus discret */
+  background: rgba(0,0,0,.04);
+}
+
+.colorlib-contact .colorlib-feature-sm .colorlib-icon i{
+  font-size:20px;             /* taille du pictogramme */
+  line-height:1;
+}
+
+.colorlib-contact .colorlib-feature-sm .colorlib-text{
+  margin-left:14px;           /* espace entre icône et texte */
+}
+
+/* Ligne compacte et responsive */
+.contact-inline{
+  display:flex;
+  flex-wrap:wrap;           /* passe à la ligne si l'espace manque */
+  gap:12px 24px;            /* espace entre items */
+  align-items:center;
+  margin:8px 0 20px;
+}
+.contact-inline .ci{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:inherit;
+  white-space:nowrap;       /* évite le retour à la ligne dans chaque item */
+  font-size:15px;
+  line-height:1.2;
+}
+.contact-inline .ci i{
+  font-size:16px;           /* petite icône */
+  line-height:1;
+}
+.contact-inline .ci:hover span{text-decoration:underline;}
+@media (prefers-color-scheme: dark){
+  .contact-inline .ci{color:#e8e8e8;}
 }
 
 
