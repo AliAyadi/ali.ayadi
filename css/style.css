@@ -2419,14 +2419,31 @@ html[data-theme="dark"] #colorlib-aside #colorlib-logo a:hover {
   margin-left:14px;           /* espace entre icône et texte */
 }
 
-.contact-inline{display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center;}
-.contact-inline .colorlib-feature{    /* rend chaque bloc compact */
-  display:flex; align-items:center; gap:8px; margin:0; padding:0; box-shadow:none;
+/* Ligne compacte et responsive */
+.contact-inline{
+  display:flex;
+  flex-wrap:wrap;           /* passe à la ligne si l'espace manque */
+  gap:12px 24px;            /* espace entre items */
+  align-items:center;
+  margin:8px 0 20px;
 }
-.contact-inline .colorlib-icon{
-  width:auto; height:auto; background:none; border:0; margin:0; padding:0;
+.contact-inline .ci{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:inherit;
+  white-space:nowrap;       /* évite le retour à la ligne dans chaque item */
+  font-size:15px;
+  line-height:1.2;
 }
-.contact-inline .colorlib-icon i{font-size:16px; line-height:1;}
-.contact-inline .colorlib-text p{margin:0; white-space:nowrap;}
+.contact-inline .ci i{
+  font-size:16px;           /* petite icône */
+  line-height:1;
+}
+.contact-inline .ci:hover span{text-decoration:underline;}
+@media (prefers-color-scheme: dark){
+  .contact-inline .ci{color:#e8e8e8;}
+}
 
 

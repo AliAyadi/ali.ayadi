@@ -53,3 +53,28 @@
 
 /* Thème: variables – OK de les laisser dans style.css si tu veux */
 
+
+/* Désactive toutes les animations "scroll-in" du template */
+.animate-box { 
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+.animated,
+.fadeInLeft, .fadeInRight, .fadeInUp, .fadeInDown,
+.fadeInTop, .fadeInBottom {
+  animation: none !important;
+}
+
+
+/* Ne pas attendre l'animation sur les sections très chargées */
+section[data-section="publication"] .animate-box,
+section[data-section="experience"]   .animate-box,
+section[data-section="education"]    .animate-box {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+
+
