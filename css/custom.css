@@ -149,6 +149,8 @@ html[data-theme="dark"]  { --contact-accent: #6aa6ff; }
   margin-top:8px;
 }
 
+
+
 .project-card{
   border-radius:14px;
   padding:20px 22px;
@@ -233,6 +235,120 @@ html[data-theme="dark"] .pill-id{ background:#10233d; color:#b7d2ff; }
 html[data-theme="dark"] .pill-link{ background:#23272f; color:#e5e7eb; border-color:#2f333b; }
 
 
+/* ===== Experience: simple card list ===== */
+.xp-list{
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.xp-item{
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+html[data-theme="dark"] .xp-item{
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
+.xp-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.xp-head h3{
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+}
+.xp-dates{
+  white-space: nowrap;
+  font-size: 14px;
+  color: var(--c-muted);
+}
+.xp-points{
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+.xp-points li{ margin: 2px 0; }
+.xp-text{ margin: 8px 0 0; }
 
+/* petit accent visuel optionnel à gauche */
+.xp-item{
+  position: relative;
+}
+.xp-item::before{
+  content: "";
+  position: absolute;
+  left: 0; top: 12px; bottom: 12px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #4c8dff, #7fb1ff);
+}
+html[data-theme="dark"] .xp-item::before{
+  background: linear-gradient(180deg, #2b4ea3, #4e78d1);
+}
+
+/* responsive: stack dates under title on petits écrans */
+@media (max-width: 540px){
+  .xp-head{ flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+
+
+/* ===== Education: same card style as Experience ===== */
+.edu-list{
+  list-style:none;
+  margin:10px 0 0;
+  padding:0;
+  display:grid;
+  gap:16px;
+}
+.edu-item{
+  position:relative;
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:12px;
+  padding:16px 18px 14px 18px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+html[data-theme="dark"] .edu-item{
+  box-shadow:0 6px 20px rgba(0,0,0,0.35);
+}
+/* petit accent vertical, identique à Experience */
+.edu-item::before{
+  content:"";
+  position:absolute; left:0; top:12px; bottom:12px; width:3px; border-radius:3px;
+  background:linear-gradient(180deg,#4c8dff,#7fb1ff);
+}
+html[data-theme="dark"] .edu-item::before{
+  background:linear-gradient(180deg,#2b4ea3,#4e78d1);
+}
+
+.edu-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+}
+.edu-head h3{ margin:0; font-size:20px; line-height:1.3; }
+.edu-dates{ white-space:nowrap; font-size:14px; color:var(--c-muted); }
+
+/* grille compacte des métadonnées (comme pc-meta) */
+.edu-meta{
+  margin:8px 0 0;
+  display:grid;
+  gap:8px 18px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+}
+.edu-meta dt{
+  font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--c-muted);
+}
+.edu-meta dd{ margin:2px 0 0; }
+
+/* responsive: dates sous le titre */
+@media (max-width:540px){
+  .edu-head{ flex-direction:column; align-items:flex-start; gap:4px; }
+}
 
 
