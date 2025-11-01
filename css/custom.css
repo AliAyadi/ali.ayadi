@@ -76,5 +76,71 @@ section[data-section="education"]    .animate-box {
   animation: none !important;
 }
 
+/* Contact line items */
+.contact-inline .ci{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  /* was: white-space: nowrap;  -> remove it */
+  white-space: normal;
+}
+.contact-inline .ci span{
+  /* allow long text to wrap inside the flex row */
+  min-width: 0;
+  overflow-wrap: anywhere;  /* or: word-break: break-word; */
+}
+
+/* Contact has enough height to be detected as a section */
+section[data-section="contact"] { min-height: 35vh; padding-bottom: 40px; }
+
+
+/* Couleur d'accent bleue pour les icônes */
+html[data-theme="light"] { --contact-accent: #1e66f5; }  /* bleu vif */
+html[data-theme="dark"]  { --contact-accent: #6aa6ff; }  /* un peu plus clair en dark */
+
+/* Icônes Font Awesome de la section Contact en bleu */
+.colorlib-contact .ci i { 
+  color: var(--contact-accent);
+  opacity: 1;
+  transition: transform .15s ease, filter .15s ease;
+}
+
+/* (optionnel) léger effet au survol */
+.colorlib-contact .ci:hover i {
+  transform: translateX(2px);
+  filter: brightness(1.1);
+}
+
+/* Si un jour tu mets une icône SVG dans Contact */
+.colorlib-contact .ci svg {
+  fill: var(--contact-accent);
+}
+
+/* Couleur de texte du bloc Contact (différente des icônes) */
+html[data-theme="light"] { --contact-text: #111111; }
+html[data-theme="dark"]  { --contact-text: #e9eef5; }
+
+/* Les liens .ci héritent d'un gris + d'une opacité dans le thème : on écrase */
+.colorlib-contact .ci,
+.colorlib-contact .ci span {
+  color: var(--contact-text) !important;
+  opacity: 1 !important;
+  text-decoration: none;
+}
+
+/* Icônes bleues (garde ce que tu as déjà) */
+html[data-theme="light"] { --contact-accent: #1e66f5; }
+html[data-theme="dark"]  { --contact-accent: #6aa6ff; }
+
+.colorlib-contact .ci i { 
+  color: var(--contact-accent);
+}
+
+.colorlib-contact .ci svg { 
+  fill: var(--contact-accent);
+}
+
+
+
 
 
