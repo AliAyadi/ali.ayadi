@@ -1122,5 +1122,26 @@ html[data-theme="dark"] .badge-new{ background:#059669; }
   /* #top-nav .brand { display: none; } */
 }
 
+/* Short CV – sous-titres et dates */
+.cv-subheading{
+  margin: 1rem 0 .25rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  opacity: .85;
+}
+
+.xp-head .xp-dates{
+  font-variant-caps: all-small-caps;
+  letter-spacing: .03em;
+  opacity: .8;
+  display: inline-block;
+  margin-left: .35rem;
+}
+
+.colorlib-experience .xp-head h3{ margin-bottom: .1rem; }
+.colorlib-experience .xp-text dl div { display:flex; gap:.5rem; }
+.colorlib-experience .xp-text dt { min-width: 7.6rem; opacity:.8; }
+
 
 
