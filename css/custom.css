@@ -1144,4 +1144,7 @@ html[data-theme="dark"] .badge-new{ background:#059669; }
 .colorlib-experience .xp-text dt { min-width: 7.6rem; opacity:.8; }
 
 
+/* Scientific Activities: listes un peu plus compactes */
+[data-section="activities"] .xp-text ul { margin: .25rem 0 .5rem; }
+[data-section="activities"] .xp-text li { margin: .15rem 0; }
 
