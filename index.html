@@ -1785,5 +1785,31 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
+<script>
+/* ── Fade-in des sections au scroll ── */
+(function () {
+  var sections = document.querySelectorAll('#colorlib-main > section');
+
+  /* Fallback immédiat si pas d'IntersectionObserver (vieux navigateurs) */
+  if (!('IntersectionObserver' in window)) {
+    sections.forEach(function (s) { s.classList.add('section-visible'); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('section-visible');
+        io.unobserve(entry.target); /* déclenché une seule fois */
+      }
+    });
+  }, {
+    threshold: 0.05   /* se déclenche dès que 5% de la section est visible */
+  });
+
+  sections.forEach(function (s) { io.observe(s); });
+})();
+</script>
+
 	</body>
 </html>

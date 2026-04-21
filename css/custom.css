@@ -1148,3 +1148,88 @@ html[data-theme="dark"] .badge-new{ background:#059669; }
 [data-section="activities"] .xp-text ul { margin: .25rem 0 .5rem; }
 [data-section="activities"] .xp-text li { margin: .15rem 0; }
 
+
+
+/* ================================================================
+   SÉPARATION VISUELLE DES SECTIONS — effet "pages séparées"
+   Ajouté en bas du fichier, écrase uniquement ce qui est nécessaire
+   ================================================================ */
+
+/* ── 1. Fond alternant : sections paires légèrement différentes ── */
+
+/* Mode clair : blanc ↔ gris très doux */
+html[data-theme="light"] #colorlib-main > section:nth-child(odd)  { background-color: #ffffff; }
+html[data-theme="light"] #colorlib-main > section:nth-child(even) { background-color: #f4f6f9; }
+
+/* Mode sombre : anthracite ↔ légèrement plus foncé */
+html[data-theme="dark"] #colorlib-main > section:nth-child(odd)  { background-color: #1c1f24; }
+html[data-theme="dark"] #colorlib-main > section:nth-child(even) { background-color: #181b20; }
+
+/* Transition douce si on bascule le thème */
+#colorlib-main > section {
+  transition: background-color .35s ease;
+}
+
+
+/* ── 2. Ligne de séparation subtile entre chaque section ────── */
+
+#colorlib-main > section + section {
+  border-top: 1px solid transparent;
+}
+
+html[data-theme="light"] #colorlib-main > section + section {
+  border-top-color: rgba(0, 0, 0, .07);
+}
+
+html[data-theme="dark"] #colorlib-main > section + section {
+  border-top-color: rgba(255, 255, 255, .05);
+}
+
+
+/* ── 3. Petit "respir" visuel en haut de chaque section ─────── */
+/*
+   On ajoute un padding-top minimal pour que chaque section
+   commence avec de l'air, renforçant la coupure visuelle.
+   On exclut la première (About) qui a déjà son propre réglage.
+*/
+#colorlib-main > section:not([data-section="about"]):not([data-section="news"]) {
+  padding-top: 2.5rem;
+}
+
+/* La première section (news) garde son comportement actuel */
+#colorlib-main > section[data-section="news"] {
+  padding-top: 1.5rem;
+}
+
+
+/* ── 4. Fade-in + légère montée au scroll ───────────────────── */
+/*
+   Chaque section part invisible et décalée de 20px vers le bas.
+   Le JS (IntersectionObserver) ajoute .section-visible au bon moment.
+   Fallback : si JS indisponible, tout est visible d'office.
+*/
+
+#colorlib-main > section {
+  opacity: 0;
+  transform: translateY(20px);
+  /* on combine avec la transition background déjà définie ci-dessus */
+  transition:
+    opacity .5s ease,
+    transform .5s ease,
+    background-color .35s ease;
+}
+
+#colorlib-main > section.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fallback : navigateurs sans IntersectionObserver → tout visible */
+@media (prefers-reduced-motion: reduce) {
+  #colorlib-main > section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: background-color .35s ease !important;
+  }
+}
+
