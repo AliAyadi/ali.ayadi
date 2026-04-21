@@ -54,7 +54,49 @@
 
 
 <!-- ⬇️ AJOUTE ICI -->
+<style>
+/* Show-more button */
+.btn-show-more {
+  display: inline-block;
+  padding: .45rem 1.4rem;
+  border: 2px solid currentColor;
+  border-radius: 2rem;
+  background: transparent;
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  color: inherit;
+  opacity: .75;
+}
+.btn-show-more:hover { opacity: 1; }
 
+/* PDF / ORCID links in publications */
+.xp-text a[aria-label^="PDF"],
+.xp-text a[aria-label="ORCID"] {
+  font-size: .78rem;
+  font-weight: 600;
+  padding: .1rem .4rem;
+  border-radius: .25rem;
+  border: 1px solid currentColor;
+  opacity: .7;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.xp-text a[aria-label^="PDF"]:hover,
+.xp-text a[aria-label="ORCID"]:hover { opacity: 1; }
+
+/* Student name links — subtle, no underline until hover */
+.xp-text strong a, li strong a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+}
+.xp-text strong a:hover, li strong a:hover {
+  border-bottom-style: solid;
+}
+</style>
 <!-- ⬆️ FIN AJOUT -->
 
 <!-- Modernizr JS -->
@@ -221,8 +263,23 @@
       </div>
     </div>
 
-    <ol class="xp-list">
+    <ol class="xp-list" id="news-list">
 		
+<!-- neurosym-xai-day -->
+<li class="xp-item">
+  <div class="xp-head">
+    <h3>
+      <a href="https://neurosym4mllm.icube.unistra.fr/neurosym-xai-day/" target="_blank" rel="noopener">Organisation de la journée thématique neurosym-xai-day — "Vers une explicabilité structurée pour les systèmes neuro-symboliques multimodaux : de la représentation des connaissances à la validation causale"</a>
+      <span class="badge-new" aria-label="New">NEW</span>
+    </h3>
+    <span class="xp-dates">06/2026</span>
+  </div>
+  <p class="xp-text">
+    Journée thématique organisée le <strong>22 juin 2026 au LIP6</strong>, Paris.
+    <a href="https://neurosym4mllm.icube.unistra.fr/neurosym-xai-day/" target="_blank" rel="noopener">More info</a>
+  </p>
+</li>
+
 <!-- ICAART Conference -->
 <li class="xp-item">
   <div class="xp-head">
@@ -398,9 +455,34 @@
 
     </ol>
 
+    <div style="text-align:center;margin-top:1rem;">
+      <button id="news-toggle-btn" class="btn-show-more">Show more</button>
+    </div>
+
   </div>
 </section>
 
+<script>
+(function(){
+  const VISIBLE = 6;
+  const list = document.getElementById('news-list');
+  const btn  = document.getElementById('news-toggle-btn');
+  if(!list || !btn) return;
+  const items = Array.from(list.querySelectorAll(':scope > li.xp-item'));
+  let expanded = false;
+
+  function apply(){
+    items.forEach((el, i) => {
+      el.style.display = (!expanded && i >= VISIBLE) ? 'none' : '';
+    });
+    btn.textContent = expanded ? 'Show less' : 'Show more (' + (items.length - VISIBLE) + ')';
+    btn.style.display = items.length <= VISIBLE ? 'none' : '';
+  }
+
+  btn.addEventListener('click', () => { expanded = !expanded; apply(); });
+  apply();
+})();
+</script>
 
 			
 <!-- Section About me -->
@@ -969,6 +1051,14 @@
         </div>
         <p class="xp-text">
           <ul>
+            <li><strong>J7</strong>: S. Arbaoui, T. Mesbahi, T. Heitzmann, M. Zitouni, A. Hidouri, L. Mamouri, <strong>A. Ayadi</strong>, A. Samet, R. Boné: Spiking Neural Networks for Accurate and Efficient State of Health Estimation of Lithium-Ion Batteries Across Varying Temperatures. <em>IEEE Open Journal of Vehicular Technology</em>, vol. 7, pp. 510–522, 2026. DOI: <a href="https://doi.org/10.1109/OJVT.2026.3653419" target="_blank" rel="noopener">10.1109/OJVT.2026.3653419</a>
+              &nbsp;<a href="https://doi.org/10.1109/OJVT.2026.3653419" target="_blank" rel="noopener" aria-label="PDF J7">[PDF]</a>
+              &nbsp;<a href="https://orcid.org/0000-0003-1660-4100" target="_blank" rel="noopener" aria-label="ORCID">[ORCID]</a>
+            </li>
+            <li><strong>J6</strong>: C. Soufi, <strong>A. Ayadi</strong>, T. Mesbahi, A. Samet, C. Lallement: BPO — A battery production ontology for traceable, transparent, and sustainable electric vehicle batteries. <em>Journal of Web Semantics</em>, 100877, 2026.
+              &nbsp;<a href="#" target="_blank" rel="noopener" aria-label="PDF J6">[PDF]</a>
+              &nbsp;<a href="https://orcid.org/0000-0003-1660-4100" target="_blank" rel="noopener" aria-label="ORCID">[ORCID]</a>
+            </li>
             <li><strong>J5</strong>: S. Arbaoui, A. Samet, <strong>A. Ayadi</strong>, T. Mesbahi, and R. Boné: Dual-model approach for one-shot lithium-ion battery state of health sequence prediction. <em>Journal of Array</em>, 2024. (Facteur d'impact : 2.3, Quartile : Q1)</li>
             <li><strong>J4</strong>: S. Arbaoui, A. Samet, <strong>A. Ayadi</strong>, T. Mesbahi, and R. Boné: Data-driven strategy for state of health prediction and anomaly detection in lithium-ion batteries. <em>Energy and AI</em>, 2024. (Facteur d'impact : 9.6, Quartile : Q1)</li>
             <li><strong>J3</strong>: C. Meyer, N. B. Romero, T. Evangelista, B. Cadot, A. Jeannin-Girardon, <strong>A. Ayadi</strong> and O. Poch: IMPatienT: An Integrated Web Application to Digitize, Process and Explore Multimodal PATIENt da Ta. <em>Journal of Neuromuscular Diseases</em>, 1–16, 2023.</li>
@@ -986,6 +1076,10 @@
         </div>
         <p class="xp-text">
           <ul>
+            <li><strong>IC28</strong>: S. Arbaoui, <strong>A. Ayadi</strong>, A. Samet, T. Mesbahi, R. Boné: Sensitivity and Ontology-Guided Counterfactual Explanation Generation for Battery State of Charge Estimation. In <em>Proceedings of ICAART 2026</em>, Vol. 2, Marbella, Spain, March 5–7, 2026, pp. 1210–1221. SCITEPRESS. DOI: <a href="https://doi.org/10.5220/0014236600004052" target="_blank" rel="noopener">10.5220/0014236600004052</a> (Core: Rang B)
+              &nbsp;<a href="https://doi.org/10.5220/0014236600004052" target="_blank" rel="noopener" aria-label="PDF IC28">[PDF]</a>
+              &nbsp;<a href="https://orcid.org/0000-0003-1660-4100" target="_blank" rel="noopener" aria-label="ORCID">[ORCID]</a>
+            </li>
             <li><strong>IC27</strong>: K. Elgohary, <strong>A. Ayadi</strong>, M. Kawczynski, A. Bloch-Zupan, C. Wemmert : Ontology-Guided Prompting for Reasoning in Multimodal Vision-Language Models. Workshop on Multimodal Knowledge and Language Modeling at IJCAI, 2025. (Core 2023 : Rang A*)</li>
             <li><strong>IC26</strong>: R. Orhand, <strong>A. Ayadi</strong> : Towards a neurosymbolic approach based on Anticipatory Learning Classifier Systems and Ontologies. In KES-2025, <em>Procedia Computer Science</em>, 2025. (Core 2023 : Rang B)</li>
             <li><strong>IC25</strong>: K. Habassi, L. Coulon, <strong>A. Ayadi</strong>, A. Samet, C. Chazallon : Prediction of Bitumen Ageing States Using the Kernel Ridge Regression. AM3P 2025, Vienna, pp. 555–558, 2025.</li>
@@ -1079,31 +1173,31 @@
         <p class="xp-text">
           <ul>
             <li>
-              <strong>Socrates Waka Onyando</strong> <span class="xp-dates">2025–2028 (36 months)</span><br>
+              <strong><a href="#" onclick="return false;">Socrates Waka Onyando</a></strong> <span class="xp-dates">2025–2028 (36 months)</span><br>
               <em>Subject:</em> Integrating Knowledge Graphs and Neurosymbolic AI for Rare Oro-Dental Anomaly Diagnosis<br>
               <em>Funding:</em> ITI HealthTech and ENACT Cluster-AI<br>
               <em>Supervisors:</em> Cédric Wemmert, Ali Ayadi, Agnès Bloch-Zupan
             </li>
             <li>
-              <strong>Oussama Mahdjour</strong> <span class="xp-dates">2025–2028 (36 months)</span><br>
+              <strong><a href="#" onclick="return false;">Oussama Mahdjour</a></strong> <span class="xp-dates">2025–2028 (36 months)</span><br>
               <em>Subject:</em> Generative Reasoning and Explainable AI for Transition to Next-gen Energy Systems and Security<br>
               <em>Funding:</em> Région Grand Est and INSA Strasbourg<br>
               <em>Supervisors:</em> Romuald Boné, Ali Ayadi, Ahmed Samet, Tedjani Mesbahi
             </li>
             <li>
-              <strong>Ho Phuc Hy</strong> <span class="xp-dates">2025–2028 (36 months)</span><br>
+              <strong><a href="#" onclick="return false;">Ho Phuc Hy</a></strong> <span class="xp-dates">2025–2028 (36 months)</span><br>
               <em>Subject:</em> Using DEVS formalism for making Transformers more transparent: modeling and simulation for explaining<br>
               <em>Funding:</em> France Excellence Scholarship<br>
               <em>Supervisors:</em> Claudia Frydman, Ali Ayadi
             </li>
             <li>
-              <strong>Damien Porcher</strong> <span class="xp-dates">2024–2027 (36 months)</span><br>
+              <strong><a href="#" onclick="return false;">Damien Porcher</a></strong> <span class="xp-dates">2024–2027 (36 months)</span><br>
               <em>Subject:</em> Neuro-symbolic for time series analysis<br>
               <em>Funding:</em> TURFU-NET TSIA ANR Project<br>
               <em>Supervisors:</em> Cédric Wemmert, Ali Ayadi, Jonathan Weber, Maxime Devanne
             </li>
             <li>
-              <strong>Slimane Arbaoui</strong> <span class="xp-dates">2024–2027 (36 months)</span><br>
+              <strong><a href="#" onclick="return false;">Slimane Arbaoui</a></strong> <span class="xp-dates">2024–2027 (36 months)</span><br>
               <em>Subject:</em> Neuro-symbolic for time series analysis<br>
               <em>Funding:</em> ENERGETIC Project<br>
               <em>Supervisors:</em> Romuald Boné, Ahmed Samet, Ali Ayadi, Tedjani Mesbahi
@@ -1120,7 +1214,7 @@
         <p class="xp-text">
           <ul>
             <li>
-              <strong>Quentin Christoffel</strong> <span class="xp-dates">2021–2024 (36 months)</span><br>
+              <strong><a href="#" onclick="return false;">Quentin Christoffel</a></strong> <span class="xp-dates">2021–2024 (36 months)</span><br>
               <em>Subject:</em> Réduction des incertitudes de modèles d’apprentissage automatique par introduction de connaissances<br>
               <em>Funding:</em> École doctorale 269 (MSII)<br>
               <em>Supervisors:</em> Aline Deruyver, Anne Jeannin-Girardon, Ali Ayadi
