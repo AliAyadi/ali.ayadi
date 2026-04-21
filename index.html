@@ -1317,7 +1317,7 @@
           <h3>Alumni (Master students)</h3>
         </div>
         <p class="xp-text">
-          <ul>
+          <ul id="alumni-list">
             <li>
               <strong>Kaoutar Benameur</strong> <span class="xp-dates">2025 (6 months)</span><br>
               <em>Subject:</em> An ontology for modeling the energy management strategy of hybrid battery electric vehicles<br>
@@ -1389,6 +1389,9 @@
 			</li>
 			
 		</ul>
+          <div style="margin-top:.6rem;">
+            <button id="alumni-toggle-btn" class="btn-show-more">Show more</button>
+          </div>
         </p>
       </li>
 
@@ -1758,6 +1761,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+<script>
+(function(){
+  const VISIBLE = 3;
+  const list = document.getElementById('alumni-list');
+  const btn  = document.getElementById('alumni-toggle-btn');
+  if(!list || !btn) return;
+  const items = Array.from(list.querySelectorAll(':scope > li'));
+  let expanded = false;
+
+  function apply(){
+    items.forEach((el, i) => {
+      el.style.display = (!expanded && i >= VISIBLE) ? 'none' : '';
+    });
+    btn.textContent = expanded
+      ? 'Show less'
+      : 'Show more (' + (items.length - VISIBLE) + ' more)';
+  }
+
+  btn.addEventListener('click', () => { expanded = !expanded; apply(); });
+  apply();
+})();
+</script>
 
 	</body>
 </html>
